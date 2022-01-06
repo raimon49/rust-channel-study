@@ -1,5 +1,6 @@
 use std::thread::spawn;
 use std::sync::mpsc::channel;
+use std::rc::Rc;
 
 fn main() {
     // mpscはmulti-producer, single-consumer（複数の生産者、単一の消費者）を意味する
@@ -15,4 +16,13 @@ fn main() {
 
         // Ok(())
     });
+
+    let rc1 = Rc::new("hello threads".to_string());
+    let rc2 = rc1.clone();
+    spawn(move || {
+//  ^^^^^ `std::rc::Rc<std::string::String>` cannot be sent between threads safely
+//         以下の行が有効になっているとRustコンパイラは上記のエラーを発生させる
+//         rc2.clone();
+    });
+    rc1.clone();
 }
