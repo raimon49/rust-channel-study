@@ -25,4 +25,9 @@ fn main() {
 //         rc2.clone();
     });
     rc1.clone();
+
+    use std::sync::mpsc;
+    pub trait OffThreadExt: Iterator {
+        fn off_thread(self) -> mpsc::IntoIter<Self::Item>;
+    }
 }
