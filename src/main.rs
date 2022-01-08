@@ -32,8 +32,8 @@ fn main() {
     }
 
     impl<T> OffThreadExt for T
-        where T: Iterator + Send + 'static,
-              T::Item: Send + 'static
+        where T: Iterator + Send + 'static, // 型Tのイテレータをspawn()で新しいスレッドに移動するため Iterator + Send + 'staticの宣言が必要
+              T::Item: Send + 'static       // アイテムをchannel()経由で送信するためSend + 'staticの宣言が必要
     {
         fn off_thread(self) -> mpsc::IntoIter<Self::Item> {
             let (sender, receiver) = mpsc::sync_channel(1024);
