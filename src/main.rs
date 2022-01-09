@@ -48,4 +48,20 @@ fn main() {
             receiver.into_iter()
         }
     }
+    {
+        use std::sync::Arc;
+        use std::sync::Mutex;
+
+        type PlayerId = u32;
+        const GAME_SIZE: usize = 8;
+        type WaitingList = Vec<PlayerId>;
+
+        struct FermEmpireApp {
+            waiting_list: Mutex<WaitingList>
+        }
+
+        let app = Arc::new(FermEmpireApp {
+            waiting_list: Mutex::new(vec![])
+        });
+    }
 }
