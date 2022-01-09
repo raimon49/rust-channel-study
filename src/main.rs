@@ -49,17 +49,22 @@ fn main() {
         }
     }
     {
+        // プレイヤーリストを管理するゲームサーバーの仮想コード
         use std::sync::Arc;
         use std::sync::Mutex;
 
+        // プレイヤーは固有のIDを持つ
         type PlayerId = u32;
+        // 待ちプレイヤーリストはGAME_SIZEよりも長くならない
         const GAME_SIZE: usize = 8;
+        // 待ちプレイヤーリストはコレクションとして実装する
         type WaitingList = Vec<PlayerId>;
 
         struct FermEmpireApp {
             waiting_list: Mutex<WaitingList>
         }
 
+        // サーバー起動時に待ちプレイヤーを持つオブジェクトをArcで囲ったシングルトンとして作成
         let app = Arc::new(FermEmpireApp {
             waiting_list: Mutex::new(vec![])
         });
