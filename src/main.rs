@@ -64,6 +64,13 @@ fn main() {
             waiting_list: Mutex<WaitingList>
         }
 
+        impl FermEmpireApp {
+            fn join_waiting_list(&self, player: PlayerId) {
+                let mut guard = self.waiting_list.lock().unwrap();
+                guard.push(player);
+            }
+        }
+
         // サーバー起動時に待ちプレイヤーを持つオブジェクトをArcで囲ったシングルトンとして作成
         let app = Arc::new(FermEmpireApp {
             waiting_list: Mutex::new(vec![])
