@@ -66,6 +66,7 @@ fn main() {
 
         impl FermEmpireApp {
             fn join_waiting_list(&self, player: PlayerId) {
+                // Mutexで囲まれたデータにアクセスするにはlock()を呼んで排他ロックを取得
                 let mut guard = self.waiting_list.lock().unwrap();
                 guard.push(player);
             }
