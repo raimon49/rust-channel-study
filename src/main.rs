@@ -69,6 +69,12 @@ fn main() {
                 // Mutexで囲まれたデータにアクセスするにはlock()を呼んで排他ロックを取得
                 let mut guard = self.waiting_list.lock().unwrap();
                 guard.push(player);
+
+                if guard.len() == GAME_SIZE {
+                    let players = guard.split_off(0);
+                    // 取得した先頭の待ちプレイヤーにゲームを開始させる
+                    // self.start_game(players);
+                }
             }
         }
 
