@@ -67,8 +67,9 @@ fn main() {
         impl FermEmpireApp {
             fn join_waiting_list(&self, player: PlayerId) {
                 // Mutexで囲まれたデータにアクセスするにはlock()を呼んで排他ロックを取得
+                // 返される値はMutexGuard<WaitingList>型
                 let mut guard = self.waiting_list.lock().unwrap();
-                // Mutex<WaitingList>は、&mut WaitingListを薄いラッパーでくるんだ型のため、WaitingListのメソッドを直接呼ぶことが可能
+                // MutexGuard<WaitingList>は、&mut WaitingListを薄いラッパーでくるんだ型のため、WaitingListのメソッドを直接呼ぶことが可能
                 guard.push(player);
 
                 if guard.len() == GAME_SIZE {
