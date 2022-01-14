@@ -70,6 +70,7 @@ fn main() {
                 // 返される値はMutexGuard<WaitingList>型
                 let mut guard = self.waiting_list.lock().unwrap();
                 // MutexGuard<WaitingList>は、&mut WaitingListを薄いラッパーでくるんだ型のため、WaitingListのメソッドを直接呼ぶことが可能
+                // Vec<PlayerId>のpush()は&mut selfを要求するが、Mutexは排他を保証するためコンパイルできる
                 guard.push(player);
 
                 if guard.len() == GAME_SIZE {
