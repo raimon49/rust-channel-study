@@ -73,6 +73,9 @@ fn main() {
                 // Vec<PlayerId>のpush()は&mut selfを要求するが、Mutexは排他を保証するためコンパイルできる
                 guard.push(player);
 
+                // 保有済みのロックをもう一度取得しようとするとデッドロックになる
+                // let mut duplicated_lock = self.waiting_list.lock().unwrap();
+
                 if guard.len() == GAME_SIZE {
                     let players = guard.split_off(0);
                     // 取得した先頭の待ちプレイヤーにゲームを開始させる
