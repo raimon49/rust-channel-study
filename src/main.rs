@@ -89,4 +89,13 @@ fn main() {
             waiting_list: Mutex::new(vec![])
         });
     }
+    {
+        pub mod shared_channel {
+            use std::sync::{Arc, Mutex};
+            use std::sync::mpsc::{channel, Sender, Receiver};
+
+            #[derive(Clone)]
+            pub struct SharedReceiver<T>(Arc<Mutex<Receiver<T>>>);
+        }
+    }
 }
