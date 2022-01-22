@@ -105,6 +105,11 @@ fn main() {
                     guard.recv().ok()
                 }
             }
+
+            pub fn chared_channel<T>() -> (Sender<T>, SharedReceiver<T>) {
+                let (sender, receiver) = channel();
+                (sender, SharedReceiver(Arc::new(Mutex::new(receiver))))
+            }
         }
     }
 }
