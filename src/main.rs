@@ -94,6 +94,10 @@ fn main() {
             use std::sync::{Arc, Mutex};
             use std::sync::mpsc::{channel, Sender, Receiver};
 
+            // Arc（ヒープ確保・アトミック参照カウント）
+            // Mutex（排他保護）
+            // Receiver（レシーバ値）
+            // T（ジェネリクスでラップしたい型）
             #[derive(Clone)]
             pub struct SharedReceiver<T>(Arc<Mutex<Receiver<T>>>);
 
