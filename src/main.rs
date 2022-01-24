@@ -110,7 +110,9 @@ fn main() {
                 }
             }
 
-            pub fn chared_channel<T>() -> (Sender<T>, SharedReceiver<T>) {
+            // Receiverを複数のスレッドで共有できる新しいchannelを作る
+            // stdlibのchannel()をこのラッパーで置き換えることも可能
+            pub fn shared_channel<T>() -> (Sender<T>, SharedReceiver<T>) {
                 let (sender, receiver) = channel();
                 (sender, SharedReceiver(Arc::new(Mutex::new(receiver))))
             }
