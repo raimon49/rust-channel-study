@@ -52,6 +52,7 @@ fn main() {
         // プレイヤーリストを管理するゲームサーバーの仮想コード
         use std::sync::Arc;
         use std::sync::Mutex;
+        use std::sync::RwLock;
 
         // プレイヤーは固有のIDを持つ
         type PlayerId = u32;
@@ -60,7 +61,12 @@ fn main() {
         // 待ちプレイヤーリストはコレクションとして実装する
         type WaitingList = Vec<PlayerId>;
 
+        struct AppConfig {
+            num: u32
+        }
+
         struct FermEmpireApp {
+            config: RwLock<AppConfig>,
             waiting_list: Mutex<WaitingList>
         }
 
@@ -86,6 +92,7 @@ fn main() {
 
         // サーバー起動時に待ちプレイヤーを持つオブジェクトをArcで囲ったシングルトンとして作成
         let app = Arc::new(FermEmpireApp {
+            config: RwLock::new(AppConfig{ num: 1 }),
             waiting_list: Mutex::new(vec![])
         });
     }
