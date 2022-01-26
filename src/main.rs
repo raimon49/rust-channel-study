@@ -88,6 +88,11 @@ fn main() {
                     // self.start_game(players);
                 }
             }
+
+            fn read_config(&self) {
+                let config_guard = self.config.read().unwrap();
+                println!("{}", config_guard.num);
+            }
         }
 
         // サーバー起動時に待ちプレイヤーを持つオブジェクトをArcで囲ったシングルトンとして作成
