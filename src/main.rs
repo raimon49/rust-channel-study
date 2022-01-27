@@ -53,6 +53,7 @@ fn main() {
         use std::sync::Arc;
         use std::sync::Mutex;
         use std::sync::RwLock;
+        use std::io;
 
         // プレイヤーは固有のIDを持つ
         type PlayerId = u32;
@@ -94,10 +95,11 @@ fn main() {
                 println!("{}", config_guard.num);
             }
 
-            fn reload_config(&self) {
+            fn reload_config(&self) -> io::Result<()> {
                 let new_config = AppConfig{ num: 100 };
                 let mut config_guard = self.config.write().unwrap();
                 *config_guard = new_config;
+                Ok(())
             }
         }
 
