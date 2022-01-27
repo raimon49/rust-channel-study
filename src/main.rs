@@ -93,6 +93,12 @@ fn main() {
                 let config_guard = self.config.read().unwrap();
                 println!("{}", config_guard.num);
             }
+
+            fn reload_config(&self) {
+                let new_config = AppConfig{ num: 100 };
+                let mut config_guard = self.config.write().unwrap();
+                *config_guard = new_config;
+            }
         }
 
         // サーバー起動時に待ちプレイヤーを持つオブジェクトをArcで囲ったシングルトンとして作成
