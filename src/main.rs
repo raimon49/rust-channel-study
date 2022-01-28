@@ -91,12 +91,14 @@ fn main() {
             }
 
             fn read_config(&self) {
+                // リードロックを取得
                 let config_guard = self.config.read().unwrap();
                 println!("{}", config_guard.num);
             }
 
             fn reload_config(&self) -> io::Result<()> {
                 let new_config = AppConfig{ num: 100 };
+                // ライトロックを取得
                 let mut config_guard = self.config.write().unwrap();
                 *config_guard = new_config;
                 Ok(())
