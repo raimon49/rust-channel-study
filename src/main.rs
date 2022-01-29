@@ -140,4 +140,11 @@ fn main() {
             }
         }
     }
+    {
+        use std::sync::atomic::AtomicUsize;
+        use std::sync::atomic::Ordering;
+
+        let atom: AtomicUsize = AtomicUsize::new(1); // 複数スレッドで共有できるアトミックな型のusize
+        atom.fetch_add(1, Ordering::SeqCst);         // アトミックな型のインクリメント（SeqCstはメモリオーダー）
+    }
 }
