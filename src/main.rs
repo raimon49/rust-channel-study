@@ -141,10 +141,13 @@ fn main() {
         }
     }
     {
-        use std::sync::atomic::AtomicUsize;
-        use std::sync::atomic::Ordering;
+        use std::sync::Arc;
+        use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
         let atom: AtomicUsize = AtomicUsize::new(1); // 複数スレッドで共有できるアトミックな型のusize
         atom.fetch_add(1, Ordering::SeqCst);         // アトミックな型のインクリメント（SeqCstはメモリオーダー）
+
+        let cancel_flag = Arc::new(AtomicBool::new(false));
+        let worker_cancel_flag = cancel_flag.clone();
     }
 }
