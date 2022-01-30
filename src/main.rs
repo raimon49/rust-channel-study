@@ -149,5 +149,13 @@ fn main() {
 
         let cancel_flag = Arc::new(AtomicBool::new(false));
         let worker_cancel_flag = cancel_flag.clone();
+
+        let worker_handle = spawn(move || {
+            if (worker_cancel_flag.load(Ordering::SeqCst)) {
+                return None;
+            }
+
+            Some(0)
+        });
     }
 }
