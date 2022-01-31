@@ -160,6 +160,7 @@ fn main() {
             Some(0)
         });
 
+        // メインスレッド側からフラグを真にしてワーカースレッドの処理をキャンセル
         cancel_flag.store(true, Ordering::SeqCst);
     }
 }
