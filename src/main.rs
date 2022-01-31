@@ -159,5 +159,7 @@ fn main() {
 
             Some(0)
         });
+
+        cancel_flag.store(true, Ordering::SeqCst);
     }
 }
