@@ -150,7 +150,9 @@ fn main() {
         let cancel_flag = Arc::new(AtomicBool::new(false));
         let worker_cancel_flag = cancel_flag.clone();
 
+        // 同じ値を見ているスマートポインタを1つはメインスレッドに留め1つはワーカースレッドに移動する
         let worker_handle = spawn(move || {
+            // キャンセルされているかチェック
             if (worker_cancel_flag.load(Ordering::SeqCst)) {
                 return None;
             }
