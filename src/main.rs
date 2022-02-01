@@ -162,5 +162,7 @@ fn main() {
 
         // メインスレッド側からフラグを真にしてワーカースレッドの処理をキャンセル
         cancel_flag.store(true, Ordering::SeqCst);
+
+        worker_handle.join().unwrap();
     }
 }
