@@ -166,4 +166,7 @@ fn main() {
         // キャンセルしたワーカースレッドの結果は捨てる（結果はNone）
         worker_handle.join().unwrap();
     }
+    {
+        static PACKETS_SERVED: usize = 0;
+    }
 }
