@@ -167,12 +167,14 @@ fn main() {
         worker_handle.join().unwrap();
     }
     {
-        use std::sync::atomic::{AtomicUsize, ATOMIC_USIZE_INIT};
+        use std::sync::atomic::{AtomicUsize, ATOMIC_USIZE_INIT, Ordering};
         // staticなグローバル変数は可変でない、またstatic mutなグローバル変数は宣言できるがunsafeである
         // static PACKETS_SERVED: usize = 0;
 
         // 代わりにAtomicなstatic変数を宣言する
         // 初期値のATOMIC_USIZE_INITは0で、ATOMIC_BOOL_INITはfalse
         static PACKETS_SERVED: AtomicUsize = ATOMIC_USIZE_INIT;
+
+        PACKETS_SERVED.fetch_add(1, Ordering::SeqCst);
     }
 }
