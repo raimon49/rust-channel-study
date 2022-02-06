@@ -174,7 +174,9 @@ fn main() {
         // 代わりにAtomicなstatic変数を宣言する
         // 初期値のATOMIC_USIZE_INITは0で、ATOMIC_BOOL_INITはfalse
         static PACKETS_SERVED: AtomicUsize = ATOMIC_USIZE_INIT;
+        assert_eq!(PACKETS_SERVED.load(Ordering::Relaxed), 0);
 
         PACKETS_SERVED.fetch_add(1, Ordering::SeqCst);
+        assert_eq!(PACKETS_SERVED.load(Ordering::Relaxed), 1);
     }
 }
