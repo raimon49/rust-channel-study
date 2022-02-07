@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate lazy_static; // an `extern crate` loading macros must be at the crate root
+
 use std::thread::spawn;
 use std::sync::mpsc::channel;
 use std::rc::Rc;
@@ -178,5 +181,16 @@ fn main() {
 
         PACKETS_SERVED.fetch_add(1, Ordering::SeqCst);
         assert_eq!(PACKETS_SERVED.load(Ordering::Relaxed), 1);
+    }
+    {
+        use std::sync::Mutex;
+
+        // static変数の初期化タイミングでは関数呼び出しがエラーになる
+        // static HOSTNAME: Mutex<String> = Mutex::new(String::new());
+
+        lazy_static! {
+            // lazy_staticクレートのlazy_static!マクロで初期化が可能
+            static ref HOSTNAME: Mutex<String> = Mutex::new(String::new());
+        }
     }
 }
