@@ -190,6 +190,7 @@ fn main() {
 
         lazy_static! {
             // lazy_staticクレートのlazy_static!マクロで初期化が可能
+            // 中の実装はstd::sync::Onceを使っている
             static ref HOSTNAME: Mutex<String> = Mutex::new(String::new());
         }
     }
